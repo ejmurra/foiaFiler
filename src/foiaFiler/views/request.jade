@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  form(method='POST')
+    legend File a request
+    .row
+      .col-xs-3
+        .form-group
+          label(for='toName') Recipient's name
+          input.form-control(type='text', name='toName', autofocus)
+      .col-xs-3
+        .form-group
+          label(for='toEmail') Recipient's email
+          input.form-control(type='text', name='toEmail')
+      .col-xs-6
+        .form-group
+          label(for='subject') Subject line
+          input.form-control(type='text', name='subject')
+      .col-xs-12
+        .form-group 
+          label(for='request') Items requested
+          textarea.form-control(type='text', name='request', rows='5')
+    .form-group
+      input(type='checkbox', value='') 
+      label(for='feeWaiver') Request fee waiver? 
+    button.btn.btn-primary(type='submit') Review
+          

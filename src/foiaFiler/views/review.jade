@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    Subject: #{subject}
+    p My name is #{firstName} #{lastName} and I am a #{position} at #{myOrg}. I am requesting the following information under the Illinois Freedom of Information Act:
+    p #{request}
+
+    p I ask that you waive any and all fees associated with the gathering of this information as I am collecting and reporting on this information in the public interest.
+    p I also ask that you cite reasons for any redactions pursuant to Illinois FOIA law.
+    p My contact info is as follows:
+    p #{firstName} #{lastName}
+    p #{myAddress}
+    p #{myAddressTwo}
+    p #{myTown}, #{myState} #{myZip}
+    p Phone: #{myPhone}
+    <br>
+    p Much appreciated,
+    p #{firstName} #{lastName}

@@ -1,0 +1,60 @@
+{
+  "name": "foiaFiler",
+  "description": "Automated foia filer and tracker",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "CONFIG"
+  },
+  "author": "Eli Murray",
+  "contributors": [
+    "Others"
+  ],
+  "license": "CONFIG",
+  "bugs": {
+    "url": "CONFIG"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.8.1",
+    "cookie-parser": "~1.3.3",
+    "debug": "~2.0.0",
+    "express": "~4.9.0",
+    "express-flash": "0.0.2",
+    "express-session": "^1.8.2",
+    "jade": "~1.6.0",
+    "mongoose": "^3.8.17",
+    "morgan": "~1.3.0",
+    "mocha": "*",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
+    "grunt": "~0.4.4",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-trimtrailingspaces": "~0.4.0",
+    "grunt-githooks": "~0.3.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-sass": "~0.7.1",
+    "grunt-contrib-uglify": "~0.3.2",
+    "karma-script-launcher": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.3",
+    "karma-chrome-launcher": "~0.1.2",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.5",
+    "karma-coffee-preprocessor": "~0.1.3",
+    "requirejs": "~2.1.11",
+    "karma-requirejs": "~0.2.1",
+    "karma-phantomjs-launcher": "~0.1.2",
+    "karma": "~0.10.9",
+    "grunt-karma": "~0.6.2",
+    "grunt-contrib-clean": "~0.5.0",
+    "load-grunt-tasks": "~0.4.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "glob": "~3.2.9",
+    "sendgrid":"1.1.1"
+  }
+}

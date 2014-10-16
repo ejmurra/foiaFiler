@@ -1,0 +1,64 @@
+extends layout
+
+block content
+  form(method='POST')
+    legend Signup
+    .row
+      .col-xs-3
+        .form-group
+          label(for='firstName') First name
+          input.form-control(type='text', name='firstName', autofocus)
+      .col-xs-3
+        .form-group
+          label(for='lastName') Last name
+          input.form-control(type='text', name='lastName')
+      .col-xs-3  
+        .form-group
+          label(for='username') Username
+          input.form-control(type='text', name='username')
+      .col-xs-3
+        .form-group
+          label(for='email') Email
+          input.form-control(type='text', name='email')
+    .row
+      .col-xs-3
+        .form-group
+          label(for='password') Password
+          input.form-control(type='password', name='password')
+        //- .form-group
+        //-   label(for='confirm') Confirm Password
+        //-   input.form-control(type='password', name='confirm')
+      .col-xs-3
+        .form-group
+          label(for='myPhone') Phone
+          input.form-control(type='text', name='myPhone')
+      .col-xs-3
+        .form-group
+          label(for='myOrg') Organization
+          input.form-control(type='text', name='myOrg')
+      .col-xs-3
+        .form-group
+          label(for='myPosition') Position
+          input.form-control(type='text', name='myPosition')
+    .row
+      .col-xs-3
+        .form-group
+          label(for='myAddress') Address line one
+          input.form-control(type='text', name='myAddress')
+      .col-xs-3
+        .form-group
+          label(for='myAddressTwo') Address line two
+          input.form-control(type='text', name='myAddressTwo')
+      .col-xs-3
+        .form-group
+          label(for='myTown') City
+          input.form-control(type='text', name='myTown')
+      .col-xs-1
+        .form-group
+          label(for='myState') State
+          input.form-control(type='text', name='myState')
+      .col-xs-1
+        .form-group
+          label(for='myZip') Zip
+          input.form-control(type='text', name='myZip')
+    button.btn.btn-primary(type='submit') Signup
