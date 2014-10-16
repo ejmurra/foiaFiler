@@ -1,7 +1,8 @@
 extends layout
 
 block content
-    Subject: #{subject}
+    p To: #{toEmail}<br>
+    p Subject: #{subject}<br>
     p My name is #{firstName} #{lastName} and I am a #{position} at #{myOrg}. I am requesting the following information under the Illinois Freedom of Information Act:
     p #{request}
 
@@ -16,3 +17,5 @@ block content
     <br>
     p Much appreciated,
     p #{firstName} #{lastName}
+
+    button.btn.btn-primary(type='submit') Send

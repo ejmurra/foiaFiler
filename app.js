@@ -21,7 +21,10 @@ var express 	  = require("express"),
 	flash 		  = require('express-flash'),
 	requestInfo   = mongoose.model('Request', request),
 	data = require('./src/foiaFiler/data/global.js'),
-	sendgrid 			= require('sendgrid')('foiaFiler','illini706');
+	sendgrid 			= require('sendgrid')('foiaFiler','illini706'),
+	requery = new Object(),
+	newestId = new String(),
+	requestArray = new Array(3)
 
 
 // Connect to Mongolab--------
@@ -263,10 +266,10 @@ app.get('/request', function(req, res) {
 		user: req.user
 	});
 });
-var newestId = new String()
-var requestArray = new Array(3)
+
+
 app.post('/request', function(req, res){
-  var request = new requestInfo({
+    var request = new requestInfo({
   	subject: req.body.subject,
   	toName: req.body.toName,
   	toEmail: req.body.toEmail,
@@ -274,32 +277,28 @@ app.post('/request', function(req, res){
   	request : req.body.request
   });
 	newestId = request._id
-	console.log(newestId)
+
 
 
   request.save(function(err) {
+		requery = requestInfo.findById(newestId, "subject toEmail request", function(err,docs){
+			if(err){
+				console.log("error")
+			}
+			else {
+					requestArray[0] = docs.subject
+					requestArray[1] = docs.toEmail
+					requestArray[2] = docs.request
+					return requestArray
+			}
+		});
   	res.redirect('/review')
   });
 });
-var requestArray = new Array(3)
-app.get('/review', function(req,res){
-	var requery
-	user = req.user
 
-	requery = requestInfo.findById(newestId, "subject toEmail request", function(err,docs){
-		if(err){
-			console.log("error")
-		}
-		else {
-				requestArray[0] = docs.subject
-				requestArray[1] = docs.toEmail
-				requestArray[2] = docs.request
-				return requestArray
-		}
-	});
-	//console.log(docs.subject)
-	console.log(requestArray[1])
-	console.log(newestId)
+
+app.get('/review', function(req,res){
+	user = req.user
 	res.render('review', {
 			user: req.user,
 	  	subject: requestArray[0],
@@ -319,36 +318,61 @@ app.get('/review', function(req,res){
 	});
 });
 
-// app.post('/review', function(requestInfo, user, done) {
-//       var Transport = nodemailer.createTransport({
-//         service: 'Gmail',
-//         auth: {
-//           user: 'foiaFiler@gmail.com',
-//           pass: 'illini706'
-//         }
-//       });
-//       var mailOptions = {
-//         to: requestInfo.toEmail,
-//         from: 'foiaFiler@gmail.com',
-//         subject: 'Foia request: ' + requestInfo.requestID,
-//         text: "My name is " + user.firstName + " " + user.lastName + " and I am a " + user.position + " at " + user.myOrg + "." + "I am requesting the following information under the Illinois Freedom of Information Act: \n\n" +
-//         requestInfo.request +
-//
-//       	"I ask that you waive any and all fees associated with the gathering of this information as I am collecting and reporting on this information in the public interest." +
-//
-//
-//     	"I also ask that you cite reasons for any redactions pursuant to Illinois FOIA law." +
-//     	"My contact info is as follows: \n" +
-//     	user.firstName + " " + user.lastName + "\n" +
-//     	user.myAddress + "\n" +
-//     	user.myAddressTwo + "\n" +
-//     	user.myTown + "," + user.myState + " " + user.myZip + "\n" +
-//     	"Phone: " + user.myPhone + "\n\n" +
-//     	"Much appreciated," +
-//     	user.firstName + " " + user.lastName
-//       };
-//       Transport.sendMail(mailOptions, function(err) {
-//         req.flash('success', 'Success! Your message has been sent.');
-//         done(err);
-//       });
-//     })
+app.post('/review', function(requestArray, user, done) {
+      // var Transport = nodemailer.createTransport({
+      //   service: 'Gmail',
+      //   auth: {
+      //     user: 'foiaFiler@gmail.com',
+      //     pass: 'illini706'
+      //   }
+      // });
+
+      // var mailOptions = {
+      //   to: requestArray[1],
+      //   from: 'foiaFiler@gmail.com',
+      //   subject: requestArray[0],
+      //   text: "My name is " + user.firstName + " " + user.lastName + " and I am a " + user.position + " at " + user.myOrg + "." + "I am requesting the following information under the Illinois Freedom of Information Act: \n\n" +
+      //   requestArray[2] +
+			//
+      // 	"I ask that you waive any and all fees associated with the gathering of this information as I am collecting and reporting on this information in the public interest." +
+			//
+			//
+    	// "I also ask that you cite reasons for any redactions pursuant to Illinois FOIA law." +
+    	// "My contact info is as follows: \n" +
+    	// user.firstName + " " + user.lastName + "\n" +
+    	// user.myAddress + "\n" +
+    	// user.myAddressTwo + "\n" +
+    	// user.myTown + "," + user.myState + " " + user.myZip + "\n" +
+    	// "Phone: " + user.myPhone + "\n\n" +
+    	// "Much appreciated," +
+    	// user.firstName + " " + user.lastName
+      // };
+				sendgrid.send({
+				to: requestArray[1],
+				from: 'foiaFiler@gmail.com',
+				subject: requestArray[0],
+				text: "My name is " + user.firstName + " " + user.lastName + " and I am a " + user.position + " at " + user.myOrg + "." + "I am requesting the following information under the Illinois Freedom of Information Act: \n\n" +
+				requestArray[2] +
+
+				"I ask that you waive any and all fees associated with the gathering of this information as I am collecting and reporting on this information in the public interest." +
+
+
+				"I also ask that you cite reasons for any redactions pursuant to Illinois FOIA law." +
+				"My contact info is as follows: \n" +
+				user.firstName + " " + user.lastName + "\n" +
+				user.myAddress + "\n" +
+				user.myAddressTwo + "\n" +
+				user.myTown + "," + user.myState + " " + user.myZip + "\n" +
+				"Phone: " + user.myPhone + "\n\n" +
+				"Much appreciated," +
+				user.firstName + " " + user.lastName
+				},
+			function(err, json) {
+				if (err) { return console.error(err); }
+			console.log(json);
+			req.flash('success', 'Success! Your foia has been sent.');
+			})
+        req.flash('success', 'Success! Your message has been sent.');
+        done(err);
+
+    })
